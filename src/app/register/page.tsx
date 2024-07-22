@@ -6,7 +6,7 @@ import { Logo } from "@/components/Svgs";
 import Link from "next/link";
 import { RegisterProps, RegisterInputError } from "@/types";
 
-const page = () => {
+const Page = () => {
 	const [value, setValue] = useState<RegisterProps>({
 		email: "",
 		password: "",
@@ -95,7 +95,7 @@ const page = () => {
 	}, []);
 
 	return (
-		<div className="max-w-[476px] flex gap-10 flex-col min-h-dvh pt-10 sm:justify-center mx-auto">
+		<div className="max-w-[476px] flex gap-10 flex-col pt-10 sm:justify-center mx-auto pb-10 bg-white sm:bg-lightGrey min-h-dvh">
 			<div className="flex items-center gap-3 justify-center">
 				<Logo />
 				<p className="font-bold md:text-2xl">devlinks</p>
@@ -161,4 +161,4 @@ const page = () => {
 	);
 };
 
-export default page;
+export default Page;
