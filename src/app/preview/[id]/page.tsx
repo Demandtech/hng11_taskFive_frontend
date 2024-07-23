@@ -9,7 +9,7 @@ const Page = () => {
 				<div className="bg-white gap-5 flex justify-between p-3 rounded-xl mb-3">
 					<Link
 						className="border text-purple whitespace-nowrap w-full sm:w-auto border-purple px-6 flex items-center rounded-lg"
-						href="profile"
+						href="/profile"
 					>
 						Back to Editor
 					</Link>

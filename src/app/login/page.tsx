@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@nextui-org/react";
 import React, { useEffect, useState } from "react";
-import Input from "@/components/Input";
+import Input from "@/components/reusables/Input";
 import { LogoIcon, LogoText } from "@/components/Svgs";
 import Link from "next/link";
 import { LoginProps, LoginInputError } from "@/types";
