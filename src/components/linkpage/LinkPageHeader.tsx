@@ -1,7 +1,25 @@
+import { useAppContext } from "@/app/contexts/AppContext";
 import { Button } from "@nextui-org/react";
 import React from "react";
 
-const LinkPageHeader = ({ setLinks }) => {
+const LinkPageHeader = () => {
+  const { updateLinks, links } = useAppContext();
+
+  const addNewLink = () => {
+    if (links.length > 0) {
+      const lastLink = links[links.length - 1];
+      if (!lastLink.name || !lastLink.url || !lastLink.icon) {
+        alert(
+          "Please fill out the last link completely before adding a new one."
+        );
+        return;
+      }
+    }
+    const newLinks = [...links];
+    newLinks.push({ name: "", url: "", icon: "" });
+
+    updateLinks(newLinks);
+  };
   return (
     <div className="mb-6">
       <h2 className="text-darkGrey font-bold md:text-3xl leading-[48px] mb-2">
@@ -12,11 +30,7 @@ const LinkPageHeader = ({ setLinks }) => {
         world!
       </p>
       <Button
-        onPress={() => {
-          setLinks((prev) => {
-            return [...prev, { name: "", link: "", icon: "" }];
-          });
-        }}
+        onPress={addNewLink}
         size="lg"
         color="primary"
         variant="bordered"

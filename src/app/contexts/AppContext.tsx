@@ -1,4 +1,11 @@
-import { useContext, createContext, useState, ReactNode } from "react";
+"use client";
+import {
+  useContext,
+  createContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 
 type AppContextType = {
   links: Link[];
@@ -8,7 +15,7 @@ type AppContextType = {
 };
 
 type User = {
-  name: string; // Additional properties can be added as needed
+  name: string;
 };
 
 type Link = {
@@ -20,7 +27,11 @@ type Link = {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export default function AppProvider({ children }: { children: ReactNode }) {
-  const [links, setLinks] = useState<Link[]>([]);
+  const [links, setLinks] = useState<Link[]>(() => {
+    const savedLinks = localStorage.getItem("Links");
+
+    return savedLinks ? JSON.parse(savedLinks) : [];
+  });
   const [user, setUser] = useState<User>({
     name: "",
   });
@@ -33,6 +44,10 @@ export default function AppProvider({ children }: { children: ReactNode }) {
     setUser(newUser);
   };
 
+  useEffect(() => {
+    localStorage.setItem("Links", JSON.stringify(links));
+  }, [links]);
+
   return (
     <AppContext.Provider value={{ links, user, updateLinks, updateUser }}>
       {children}
@@ -41,5 +56,9 @@ export default function AppProvider({ children }: { children: ReactNode }) {
 }
 
 export const useAppContext = () => {
-  return useContext(AppContext);
+  const context = useContext(AppContext);
+  if (!context) {
+    throw new Error("useAppContext must be used within an AppProvider");
+  }
+  return context;
 };

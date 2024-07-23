@@ -11,12 +11,22 @@ import {
 import { Button, Input } from "@nextui-org/react";
 import { Select, SelectItem } from "@nextui-org/react";
 import { LinkCardProps } from "@/types";
+import { useAppContext } from "@/app/contexts/AppContext";
 
-const LinkCard: React.FC<LinkCardProps> = ({ index, setLinks }) => {
-  const [value, setValue] = React.useState("");
+const LinkCard: React.FC<LinkCardProps> = ({ index }) => {
+  const [value, setValue] = React.useState({
+    name: "",
+    url: "",
+    icon: "",
+  });
+  const { links, updateLinks } = useAppContext();
 
   const handleSelectionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setValue(e.target?.value);
+    setValue((prev) => {
+      return {
+        ...prev,
+      };
+    });
   };
 
   const platforms: Array<{ name: string; icon: React.ReactNode }> = [
@@ -42,6 +52,11 @@ const LinkCard: React.FC<LinkCardProps> = ({ index, setLinks }) => {
     },
   ];
 
+  const handlRemoveLink = () => {
+    const newLinks = links.filter((_, idx) => idx !== index);
+    updateLinks(newLinks);
+  };
+
   return (
     <div className="bg-lightGrey rounded-xl p-5">
       <div className="flex justify-between items-center mb-3">
@@ -52,6 +67,7 @@ const LinkCard: React.FC<LinkCardProps> = ({ index, setLinks }) => {
         <Button
           className="text-grey font-normal px-0 justify-end"
           variant="light"
+          onPress={handlRemoveLink}
         >
           Remove
         </Button>

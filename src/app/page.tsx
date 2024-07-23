@@ -5,17 +5,17 @@ import LinkPageHeader from "@/components/linkpage/LinkPageHeader";
 import Links from "@/components/linkpage/Links";
 import { Button } from "@nextui-org/react";
 import { useState } from "react";
+import { useAppContext } from "./contexts/AppContext";
 
 export default function Home() {
-  const [links, setLinks] = useState([]);
+  const { links } = useAppContext();
   return (
     <DashboardLayout>
       <div className="h-full overflow-y-auto bg-white rounded-xl p-6 sm:p-10">
-        <LinkPageHeader setLinks={setLinks}/>
+        <LinkPageHeader />
 
         <div className="min-h-[calc(100vh-474px)] flex flex-col md:min-h-[calc(100vh-465px)]">
-          {/* <EmptyLink /> */}
-          <Links setLinks={setLinks} links={links} />
+          {links.length > 0 ? <Links /> : <EmptyLink />}
         </div>
         <div className="flex justify-end border-t border-borders mt-10 pt-5">
           <Button
