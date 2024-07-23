@@ -2,7 +2,7 @@
 import { Button } from "@nextui-org/react";
 import React, { useEffect, useState } from "react";
 import Input from "@/components/Input";
-import { Logo } from "@/components/Svgs";
+import { LogoIcon, LogoText } from "@/components/Svgs";
 import Link from "next/link";
 import { RegisterProps, RegisterInputError } from "@/types";
 
@@ -97,8 +97,8 @@ const Page = () => {
 	return (
 		<div className="max-w-[476px] flex gap-10 flex-col pt-10 sm:justify-center mx-auto pb-10 bg-white sm:bg-lightGrey min-h-dvh">
 			<div className="flex items-center gap-3 justify-center">
-				<Logo />
-				<p className="font-bold md:text-2xl">devlinks</p>
+				<LogoIcon />
+				<LogoText />
 			</div>
 			<div className="bg-white p-8 sm:p-10 rounded-xl">
 				<div className="mb-10">

@@ -18,7 +18,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body
-				className={`${instrument.className} `}
+				className={`${instrument.className} max-w-[1440px] mx-auto bg-white sm:bg-lightGrey`}
 			>
 				<NextProviders>{children}</NextProviders>
 			</body>
