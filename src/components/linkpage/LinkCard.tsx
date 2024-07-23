@@ -9,9 +9,8 @@ const LinkCard: React.FC<LinkCardProps> = ({ index }) => {
 
   const handleSelectionChange = (e) => {
     setValue(e.target.value);
+    console.log(e.target.value);
   };
-
-  console.log(value)
 
   const platforms = [
     {
@@ -61,6 +60,7 @@ const LinkCard: React.FC<LinkCardProps> = ({ index }) => {
             }}
             onChange={handleSelectionChange}
             selectedKeys={[value]}
+            startContent={platforms[value]?.icon}
           >
             {platforms.map((platform, index) => (
               <SelectItem startContent={platform.icon} key={index}>
