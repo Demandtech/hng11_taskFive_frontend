@@ -2,6 +2,7 @@
 import DashboardLayout from "@/app/layouts/DashboardLayout";
 import EmptyLink from "@/components/linkpage/EmptyLink";
 import LinkPageHeader from "@/components/linkpage/LinkPageHeader";
+import Links from "@/components/linkpage/Links";
 import { Button } from "@nextui-org/react";
 
 export default function Home() {
@@ -11,7 +12,8 @@ export default function Home() {
         <LinkPageHeader />
 
         <div className="min-h-[calc(100vh-474px)] flex flex-col md:min-h-[calc(100vh-465px)]">
-          <EmptyLink />
+          {/* <EmptyLink /> */}
+          <Links />
         </div>
         <div className="flex justify-end border-t border-borders mt-10 pt-5">
           <Button
