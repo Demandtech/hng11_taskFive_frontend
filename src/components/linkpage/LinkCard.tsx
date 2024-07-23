@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AnchorIcon, EqualIcon } from "../Svgs";
+import { AnchorIcon, EqualIcon, GithubIcon } from "../Svgs";
 import { Button, Input } from "@nextui-org/react";
 import { Select, SelectItem } from "@nextui-org/react";
 import { LinkCardProps } from "@/types";
@@ -11,10 +11,12 @@ const LinkCard: React.FC<LinkCardProps> = ({ index }) => {
     setValue(e.target.value);
   };
 
+  console.log(value)
+
   const platforms = [
     {
       name: "Github",
-      icon: "",
+      icon: <GithubIcon />,
     },
     {
       name: "Facebook",
@@ -57,10 +59,13 @@ const LinkCard: React.FC<LinkCardProps> = ({ index }) => {
               innerWrapper: "rounded-sm ",
               trigger: "hover:border-primary focus:shadow-inputHover",
             }}
+            onChange={handleSelectionChange}
             selectedKeys={[value]}
           >
-            {["Github", "Youtube"].map((animal, index) => (
-              <SelectItem key={index}>{animal}</SelectItem>
+            {platforms.map((platform, index) => (
+              <SelectItem startContent={platform.icon} key={index}>
+                {platform.name}
+              </SelectItem>
             ))}
           </Select>
         </div>
