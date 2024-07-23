@@ -1,33 +1,44 @@
 import React, { useState } from "react";
-import { AnchorIcon, EqualIcon, GithubIcon } from "../Svgs";
+import {
+  AnchorIcon,
+  EqualIcon,
+  GithubIcon,
+  FacebookIcon,
+  LinkedinIcon,
+  FrontendMentorIcon,
+  YoutubeIcon,
+} from "../Svgs";
 import { Button, Input } from "@nextui-org/react";
 import { Select, SelectItem } from "@nextui-org/react";
 import { LinkCardProps } from "@/types";
 
-const LinkCard: React.FC<LinkCardProps> = ({ index }) => {
+const LinkCard: React.FC<LinkCardProps> = ({ index, setLinks }) => {
   const [value, setValue] = React.useState("");
 
-  const handleSelectionChange = (e) => {
-    setValue(e.target.value);
-    console.log(e.target.value);
+  const handleSelectionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setValue(e.target?.value);
   };
 
-  const platforms = [
+  const platforms: Array<{ name: string; icon: React.ReactNode }> = [
     {
       name: "Github",
       icon: <GithubIcon />,
     },
     {
       name: "Facebook",
-      icon: "",
+      icon: <FacebookIcon />,
     },
     {
-      name: "Twitter",
-      icon: "",
+      name: "Frontend Mentor",
+      icon: <FrontendMentorIcon />,
     },
     {
-      name: "Github",
-      icon: "",
+      name: "Youtube",
+      icon: <YoutubeIcon />,
+    },
+    {
+      name: "Linkedin",
+      icon: <LinkedinIcon />,
     },
   ];
 
@@ -55,12 +66,13 @@ const LinkCard: React.FC<LinkCardProps> = ({ index }) => {
             radius="sm"
             placeholder="Select platform"
             classNames={{
+              mainWrapper: "",
               innerWrapper: "rounded-sm ",
-              trigger: "hover:border-primary focus:shadow-inputHover",
+              trigger: "border-1 focus:shadow-inputHover",
             }}
             onChange={handleSelectionChange}
             selectedKeys={[value]}
-            startContent={platforms[value]?.icon}
+            startContent={value !== "" && platforms[Number(value)]?.icon}
           >
             {platforms.map((platform, index) => (
               <SelectItem startContent={platform.icon} key={index}>

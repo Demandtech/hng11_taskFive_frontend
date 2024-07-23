@@ -1,7 +1,7 @@
 import { Button } from "@nextui-org/react";
 import React from "react";
 
-const LinkPageHeader = () => {
+const LinkPageHeader = ({ setLinks }) => {
   return (
     <div className="mb-6">
       <h2 className="text-darkGrey font-bold md:text-3xl leading-[48px] mb-2">
@@ -12,6 +12,11 @@ const LinkPageHeader = () => {
         world!
       </p>
       <Button
+        onPress={() => {
+          setLinks((prev) => {
+            return [...prev, { name: "", link: "", icon: "" }];
+          });
+        }}
         size="lg"
         color="primary"
         variant="bordered"

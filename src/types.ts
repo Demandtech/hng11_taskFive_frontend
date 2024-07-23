@@ -33,4 +33,5 @@ export type RegisterInputError = {
 
 export type LinkCardProps = {
   index: number;
+  setLinks: () => void;
 };

@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import LinkCard from "./LinkCard";
 
-const Links = () => {
+const Links = ({setLinks, links}) => {
+  
   return (
     <div className="space-y-6">
-      {[" ", " "].map((_, index) => {
-        return <LinkCard index={index} key={index} />;
+      {links.map((_, index) => {
+        return <LinkCard setLinks={setLinks} index={index} key={index} />;
       })}
     </div>
   );

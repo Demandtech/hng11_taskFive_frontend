@@ -4,16 +4,18 @@ import EmptyLink from "@/components/linkpage/EmptyLink";
 import LinkPageHeader from "@/components/linkpage/LinkPageHeader";
 import Links from "@/components/linkpage/Links";
 import { Button } from "@nextui-org/react";
+import { useState } from "react";
 
 export default function Home() {
+  const [links, setLinks] = useState([]);
   return (
     <DashboardLayout>
       <div className="h-full overflow-y-auto bg-white rounded-xl p-6 sm:p-10">
-        <LinkPageHeader />
+        <LinkPageHeader setLinks={setLinks}/>
 
         <div className="min-h-[calc(100vh-474px)] flex flex-col md:min-h-[calc(100vh-465px)]">
           {/* <EmptyLink /> */}
-          <Links />
+          <Links setLinks={setLinks} links={links} />
         </div>
         <div className="flex justify-end border-t border-borders mt-10 pt-5">
           <Button
