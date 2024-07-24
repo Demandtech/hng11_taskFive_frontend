@@ -30,6 +30,11 @@ const config: Config = {
       lightGrey: "#FAFAFA",
       darkGrey: "#333333",
       white: "#ffffff",
+      github:"#1A1A1A",
+      facebook:"#1877F2",
+      linkedin:"#2D68FF",
+      youtube:"#EE3939",
+      mentor:"#3e54a3"
     },
   },
   darkMode: "class",

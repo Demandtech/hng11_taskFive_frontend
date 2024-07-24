@@ -1,20 +1,16 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DashboardLayout from "../layouts/DashboardLayout";
 import ProfileHeader from "@/components/profile/ProfileHeader";
 import UploadImage from "@/components/profile/UploadImage";
 import ProfileInfo from "@/components/profile/ProfileInfo";
 import { Button } from "@nextui-org/react";
-import {ProfileInfoErrors, ProfileInfoValues} from "../../types"
-
+import { ProfileInfoErrors, User } from "../../types";
+import { useAppContext } from "../contexts/AppContext";
 
 const Page: React.FC = () => {
-  const [values, setValues] = useState<ProfileInfoValues>({
-    first_name: "",
-    last_name: "",
-    email: "",
-    img: "",
-  });
+  const { updateUser, user } = useAppContext();
+  const [values, setValues] = useState<User>(user);
 
   const [inputError, setInputsError] = useState<ProfileInfoErrors>({
     first_name: { isError: false, message: "" },
@@ -22,7 +18,10 @@ const Page: React.FC = () => {
     email: { isError: false, message: "" },
     img: { isError: false, message: "" },
   });
-  
+
+  useEffect(() => {
+    updateUser(values);
+  }, [values]);
 
   return (
     <DashboardLayout>

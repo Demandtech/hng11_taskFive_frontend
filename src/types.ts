@@ -56,24 +56,31 @@ export type InputsError = {
   platform: InputError;
 };
 
-export type ProfileInfoValues = {
+export type User = {
   first_name: string;
   last_name: string;
   email: string;
   img: string;
+  imgFile: File;
 };
-
 
 export type ProfileInfoErrors = {
   first_name: InputError;
-  last_name:InputError;
-  email:InputError;
+  last_name: InputError;
+  email: InputError;
   img: InputError;
 };
 
 export type ProfileInfoProps = {
-  values: ProfileInfoValues;
-  setValues: React.Dispatch<SetStateAction<ProfileInfoValues>>;
+  values: User;
+  setValues: React.Dispatch<SetStateAction<User>>;
   inputsError: ProfileInfoErrors;
   setInputsError: React.Dispatch<SetStateAction<ProfileInfoErrors>>;
+};
+
+export type AppContextType = {
+  links: Link[];
+  user: User;
+  updateLinks: (newLinks: Link[]) => void;
+  updateUser: (newUser: User) => void;
 };

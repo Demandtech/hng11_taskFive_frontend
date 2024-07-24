@@ -25,12 +25,7 @@ const LinkCard: FC<LinkCardProps> = ({ index, link, setError, inputError }) => {
     setValue(selectedValue);
 
     const updatedLinks = links.map((li, idx) =>
-      li.name === link.name
-        ? {
-            ...li,
-            name: selectedValue,
-          }
-        : li
+      idx === index ? { ...li, name: selectedValue } : li
     );
 
     updateLinks(updatedLinks);
@@ -120,41 +115,45 @@ const LinkCard: FC<LinkCardProps> = ({ index, link, setError, inputError }) => {
     }
   };
 
-  console.log(error);
-
   const platforms: Array<{ name: string; icon: React.ReactNode; id: number }> =
     [
       {
         id: 1,
         name: "Github",
-        icon: <GithubIcon />,
+        icon: <GithubIcon color="#737373" />,
       },
       {
         id: 2,
         name: "Facebook",
-        icon: <FacebookIcon />,
+        icon: <FacebookIcon color="#737373" />,
       },
       {
         id: 3,
         name: "Frontend Mentor",
-        icon: <FrontendMentorIcon />,
+        icon: <FrontendMentorIcon color="#737373" />,
       },
       {
         id: 4,
         name: "Youtube",
-        icon: <YoutubeIcon />,
+        icon: <YoutubeIcon color="#737373" />,
       },
       {
         id: 5,
         name: "Linkedin",
-        icon: <LinkedinIcon />,
+        icon: <LinkedinIcon color="#737373" />,
       },
     ];
 
   const handlRemoveLink = () => {
-    const newLinks = links.filter((li) => li.name !== link.name);
+    const newLinks = links.filter((_, idx) => idx !== index);
     updateLinks(newLinks);
   };
+
+  const selectedPlatforms = links.map((li) => li.name);
+
+  const availablePlatforms = platforms.filter(
+    (platform) => !selectedPlatforms.includes(platform.name)
+  );
 
   return (
     <div className="bg-lightGrey rounded-xl p-5">
@@ -187,10 +186,7 @@ const LinkCard: FC<LinkCardProps> = ({ index, link, setError, inputError }) => {
             }}
             onChange={handleSelectionChange}
             selectedKeys={[value]}
-            startContent={platforms.find((plat) => plat.name == value)?.icon}
-            onBlur={handleSelectBlur}
-            isInvalid={error.platform.isError}
-            errorMessage={error.platform.message}
+            startContent={platforms.find((plat) => plat.name == value)?.icon}      
           >
             {platforms.map((platform) => (
               <SelectItem startContent={platform.icon} key={platform.name}>
