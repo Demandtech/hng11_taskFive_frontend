@@ -10,11 +10,11 @@ import {
 } from "../Svgs";
 import { Button, Input } from "@nextui-org/react";
 import { Select, SelectItem } from "@nextui-org/react";
-import { LinkCardProps } from "@/types";
+import { LinkCardProps, Link } from "@/types";
 import { useAppContext } from "@/app/contexts/AppContext";
 
 const LinkCard: React.FC<LinkCardProps> = ({ index }) => {
-  const [value, setValue] = React.useState({
+  const [value, setValue] = React.useState<Link>({
     name: "",
     url: "",
     icon: "",
@@ -25,8 +25,14 @@ const LinkCard: React.FC<LinkCardProps> = ({ index }) => {
     setValue((prev) => {
       return {
         ...prev,
+        name: platforms[Number(e.target.value)].name,
+        icon: platforms[Number(e.target.value)].icon,
       };
     });
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value);
   };
 
   const platforms: Array<{ name: string; icon: React.ReactNode }> = [
@@ -87,11 +93,11 @@ const LinkCard: React.FC<LinkCardProps> = ({ index }) => {
               trigger: "border-1 focus:shadow-inputHover",
             }}
             onChange={handleSelectionChange}
-            selectedKeys={[value]}
-            startContent={value !== "" && platforms[Number(value)]?.icon}
+            selectedKeys={[value.name]}
+            startContent={value.icon}
           >
             {platforms.map((platform, index) => (
-              <SelectItem startContent={platform.icon} key={index}>
+              <SelectItem startContent={platform.icon} key={platform.name}>
                 {platform.name}
               </SelectItem>
             ))}

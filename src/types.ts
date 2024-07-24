@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export type InputProps = {
   placeholder?: string;
   type?: string;
@@ -34,4 +36,10 @@ export type RegisterInputError = {
 export type LinkCardProps = {
   index: number;
   setLinks: (newLinks: []) => void;
+};
+
+export type Link = {
+  name: string;
+  icon: ReactNode;
+  url: string;
 };
