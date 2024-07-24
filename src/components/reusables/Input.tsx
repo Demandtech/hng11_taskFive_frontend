@@ -12,6 +12,7 @@ const Comp: React.FC<InputProps> = ({
   value,
   isInvalid,
   errorMessage,
+  labelPlacement,
 }) => {
   return (
     <div className="relative">
@@ -26,8 +27,10 @@ const Comp: React.FC<InputProps> = ({
         color="primary"
         type={type}
         label={label}
-        labelPlacement="outside"
-        startContent={type === "password" ? <Lock /> : <Envelop />}
+        labelPlacement={labelPlacement ? labelPlacement : "outside"}
+        startContent={
+          type === "password" ? <Lock /> : type === "email" ? <Envelop /> : ""
+        }
         onChange={onChange}
         value={value}
         name={name}

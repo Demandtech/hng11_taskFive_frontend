@@ -54,7 +54,7 @@ const Navbar = () => {
       <div>
         <Link
           className="text-purple hover:bg-lightPurple border border-purple px-3 sm:px-6 flex h-full items-center rounded-lg transition-background duration-300 ease-linear"
-          href="/preview"
+          href="/preview/9898"
         >
           <div className="sm:hidden">
             <PreviewIcon />

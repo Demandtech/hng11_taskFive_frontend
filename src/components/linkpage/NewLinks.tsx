@@ -1,13 +1,14 @@
 import React, { useState, SetStateAction, Dispatch } from "react";
 import LinkCard from "./NewLinkCard";
 import { useAppContext } from "@/app/contexts/AppContext";
+import { InputsError } from "@/types";
 
 const Links = ({
   setError,
-  error,
+  inputsError,
 }: {
-  setError: Dispatch<SetStateAction<boolean>>;
-  error: boolean;
+  setError:Dispatch<SetStateAction<InputsError>>;
+  inputsError: InputsError;
 }) => {
   const { links } = useAppContext();
 
@@ -20,7 +21,7 @@ const Links = ({
             link={link}
             index={index}
             key={link.name}
-            error={error}
+            inputError={inputsError}
           />
         );
       })}

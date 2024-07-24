@@ -10,14 +10,14 @@ import {
 } from "../Svgs";
 import { Button, Input } from "@nextui-org/react";
 import { Select, SelectItem } from "@nextui-org/react";
-import { LinkCardProps, Link } from "@/types";
+import { LinkCardProps, Link, InputsError } from "@/types";
 import { useAppContext } from "@/app/contexts/AppContext";
 
-const LinkCard: FC<LinkCardProps> = ({ index, link, setError, error }) => {
+const LinkCard: FC<LinkCardProps> = ({ index, link, setError, inputError }) => {
   const [value, setValue] = useState(link.name);
   const [url, setUrl] = useState(link.url);
   const { links, updateLinks } = useAppContext();
-//   const [error, setError] = useState(false);
+  const [error, setErrors] = useState(inputError);
 
   const handleSelectionChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = e.target.value;
@@ -34,6 +34,13 @@ const LinkCard: FC<LinkCardProps> = ({ index, link, setError, error }) => {
     );
 
     updateLinks(updatedLinks);
+
+    setError((prev) => {
+      return {
+        ...prev,
+        platform: { isError: false, message: "" },
+      };
+    });
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -45,24 +52,75 @@ const LinkCard: FC<LinkCardProps> = ({ index, link, setError, error }) => {
     );
 
     updateLinks(updatedLinks);
+    setError((prev) => {
+      return {
+        ...prev,
+        link: { isError: false, message: "" },
+      };
+    });
+
+    setErrors((prev) => {
+      return {
+        ...prev,
+        link: { isError: false, message: "" },
+      };
+    });
   };
 
-  const handleInputBlur = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e);
-    const { name, value } = e.target;
-    setUrl(value);
-
+  const handleInputBlur = () => {
     try {
-      new URL(value);
-
-      setUrl(value);
+      if (url) {
+        new URL(url);
+      } else {
+        setError((prev) => {
+          return {
+            ...prev,
+            link: { isError: true, message: "Link can not be empty" },
+          };
+        });
+        setErrors((prev) => {
+          return {
+            ...prev,
+            link: { isError: true, message: "Link can not be empty" },
+          };
+        });
+      }
     } catch (error) {
-      console.error("Invalid URL:", value);
-      setError(true);
+      setError((prev) => {
+        return {
+          ...prev,
+          link: { isError: true, message: "Enter a valid url" },
+        };
+      });
 
-      alert("Please enter a valid URL.");
+      setErrors((prev) => {
+        return {
+          ...prev,
+          link: { isError: true, message: "Enter a valid url" },
+        };
+      });
     }
   };
+
+  const handleSelectBlur = () => {
+    if (!value) {
+      setError((prev) => {
+        return {
+          ...prev,
+          platform: { isError: true, message: "Can not be empty" },
+        };
+      });
+    } else {
+      setError((prev) => {
+        return {
+          ...prev,
+          platform: { isError: false, message: "" },
+        };
+      });
+    }
+  };
+
+  console.log(error);
 
   const platforms: Array<{ name: string; icon: React.ReactNode; id: number }> =
     [
@@ -130,6 +188,9 @@ const LinkCard: FC<LinkCardProps> = ({ index, link, setError, error }) => {
             onChange={handleSelectionChange}
             selectedKeys={[value]}
             startContent={platforms.find((plat) => plat.name == value)?.icon}
+            onBlur={handleSelectBlur}
+            isInvalid={error.platform.isError}
+            errorMessage={error.platform.message}
           >
             {platforms.map((platform) => (
               <SelectItem startContent={platform.icon} key={platform.name}>
@@ -138,7 +199,7 @@ const LinkCard: FC<LinkCardProps> = ({ index, link, setError, error }) => {
             ))}
           </Select>
         </div>
-        <div>
+        <div className="relative">
           <Input
             startContent={<AnchorIcon className="fill-grey" />}
             variant="bordered"
@@ -156,8 +217,13 @@ const LinkCard: FC<LinkCardProps> = ({ index, link, setError, error }) => {
             value={url}
             onChange={handleInputChange}
             onBlur={handleInputBlur}
-            isInvalid={error}
+            isInvalid={error?.link.isError}
           />
+          {error.link.isError && (
+            <span className="text-xs text-red absolute top-1/2 pt-1 right-4">
+              {error.link.message}
+            </span>
+          )}
         </div>
       </div>
     </div>

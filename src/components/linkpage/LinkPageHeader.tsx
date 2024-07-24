@@ -1,24 +1,31 @@
 import { useAppContext } from "@/app/contexts/AppContext";
+import { InputsError } from "@/types";
 import { Button } from "@nextui-org/react";
-import React from "react";
+import React, { FC } from "react";
 
-const LinkPageHeader = ({ error }: { error: boolean }) => {
+const LinkPageHeader = () => {
   const { updateLinks, links } = useAppContext();
 
   const addNewLink = () => {
     if (links.length > 0) {
       const lastLink = links[links.length - 1];
-      if (!lastLink.name || !lastLink.url || error) {
-        alert(
-          error
-            ? "Enter a valid link"
-            : "Please fill out the last link completely before adding a new one."
-        );
+      try {
+        if (!lastLink.name || !lastLink.url) {
+          alert("Fill the last Detail");
+          return;
+        } else {
+          new URL(lastLink.url);
+          const newLinks = [...links, { name: "", url: "", value: "" }];
+
+          updateLinks(newLinks);
+        }
+      } catch (err) {
+        alert("Enter valid Link");
         return;
       }
     }
+
     const newLinks = [...links, { name: "", url: "", value: "" }];
-    // newLinks.push({ name: "", url: "", value: "" });
 
     updateLinks(newLinks);
   };
