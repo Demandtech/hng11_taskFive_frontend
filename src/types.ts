@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import {Dispatch,SetStateAction  } from "react";
 
 export type InputProps = {
 	placeholder?: string;
@@ -36,6 +36,8 @@ export type RegisterInputError = {
 export type LinkCardProps = {
 	index: number;
 	link: Link;
+	setError: Dispatch<SetStateAction<boolean>>
+	error: boolean
 };
 
 export type Link = {
@@ -43,8 +45,8 @@ export type Link = {
 	url: string;
 };
 
-export type Link = {
-  name: string;
-  icon: ReactNode;
-  url: string;
-};
+// export type Link = {
+//   name: string;
+//   icon: ReactNode;
+//   url: string;
+// };
