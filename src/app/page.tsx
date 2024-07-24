@@ -8,26 +8,26 @@ import { useState } from "react";
 import { useAppContext } from "./contexts/AppContext";
 
 export default function Home() {
-  const { links } = useAppContext();
-  return (
-    <DashboardLayout>
-      <div className="h-full overflow-y-auto bg-white rounded-xl p-6 sm:p-10">
-        <LinkPageHeader />
+	const { links } = useAppContext();
+	return (
+		<DashboardLayout>
+			<div className="h-full overflow-y-auto bg-white rounded-xl p-6 sm:p-10">
+				<LinkPageHeader />
 
-        <div className="min-h-[calc(100vh-474px)] flex flex-col md:min-h-[calc(100vh-465px)]">
-          {links.length > 0 ? <Links /> : <EmptyLink />}
-        </div>
-        <div className="flex justify-end border-t border-borders mt-10 pt-5">
-          <Button
-            color="primary"
-            className="text-white w-full sm:w-auto hover:bg-purpleHover hover:shadow-inputHover"
-            size="lg"
-            // isDisabled={true}
-          >
-            Save
-          </Button>
-        </div>
-      </div>
-    </DashboardLayout>
-  );
+				<div className="min-h-[calc(100vh-474px)] flex flex-col md:min-h-[calc(100vh-465px)]">
+					{links.length > 0 ? <Links /> : <EmptyLink />}
+				</div>
+				<div className="flex justify-end border-t border-borders mt-10 pt-5">
+					<Button
+						color="primary"
+						className="text-white w-full sm:w-auto hover:bg-purpleHover hover:shadow-inputHover"
+						size="lg"
+						isDisabled={!links.length > 0}
+					>
+						Save
+					</Button>
+				</div>
+			</div>
+		</DashboardLayout>
+	);
 }
