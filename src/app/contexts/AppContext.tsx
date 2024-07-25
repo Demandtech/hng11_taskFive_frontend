@@ -36,23 +36,13 @@ export default function AppProvider({ children }: { children: ReactNode }) {
 		setUser(newUser);
 	};
 
-	// useEffect(() => {
-	//   if (Object.values(user.imgFile).length > 0) {
-	//     const image = URL.createObjectURL(user.imgFile);
-	//     user.img = image;
-	//     updateUser(user);
-	//   }
-	// }, [user]);
+	console.log(user)
 
 	useEffect(() => {
 		if (document && links) {
 			localStorage.setItem("Links", JSON.stringify(links));
 		}
-
-		if (document && user) {
-			localStorage.setItem("User", JSON.stringify(user));
-		}
-	}, [links, user]);
+	}, [links]);
 
 	return (
 		<AppContext.Provider value={{ links, user, updateLinks, updateUser }}>

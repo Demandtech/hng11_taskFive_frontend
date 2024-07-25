@@ -19,9 +19,11 @@ const Page: React.FC = () => {
 		img: { isError: false, message: "" },
 	});
 
-	useEffect(() => {
-		updateUser(values);
-	}, [values, user]);
+	// useEffect(() => {
+	// 	updateUser(values);
+	// 	setValues(user);
+	// }, [values]);
+
 
 
 	return (
@@ -34,8 +36,10 @@ const Page: React.FC = () => {
 					<ProfileInfo
 						setInputsError={setInputsError}
 						inputsError={inputError}
-						values={values}
-						setValues={setValues}
+						// values={values}
+						// setValues={setValues}
+						values={user}
+						setValues={updateUser}
 					/>
 				</div>
 

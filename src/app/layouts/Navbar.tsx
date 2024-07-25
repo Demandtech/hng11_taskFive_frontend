@@ -10,14 +10,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect } from "react";
 import { useAppContext } from "../contexts/AppContext";
-import { useRouter } from "next/navigation";
+
 
 const Navbar = () => {
 	const path = usePathname();
-	const { updateUser, user } = useAppContext();
-	const router = useRouter();
+	const { updateUser, user } = useAppContext()
 
 	useEffect(() => {
+
 		const fetchUser = async () => {
 			const supabase = createClient();
 			const {
