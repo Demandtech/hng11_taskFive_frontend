@@ -15,25 +15,25 @@ const Review = () => {
       <div className="flex flex-col items-center">
         <div className="bg-[#EEEEEE] w-24 h-24 rounded-full mb-5 relative overflow-hidden">
            {
-            user.img && <Image layout="fill" src={user.img} alt="display image"/>
+            user?.img && <Image layout="fill" src={user?.img} alt="display image"/>
            }
         </div>
         <div className="flex flex-col items-center gap-2 mb-12">
           <div
             className={`${
-              user.first_name
+              user?.first_name
                 ? "max-w-[230px] text-ellipsis whitespace-nowrap overflow-hidden"
                 : "bg-[#EEEEEE] h-4 w-[120px] rounded-xl z-50"
             } font-bold text-3xl `}
           >
-            {user.first_name} {user.last_name}
+            {user?.first_name} {user?.last_name}
           </div>
           <div
             className={`${
-              user.email ? "" : "bg-[#EEEEEE]  h-2 w-[100px] rounded-xl z-50"
+              user?.email ? "" : "bg-[#EEEEEE]  h-2 w-[100px] rounded-xl z-50"
             } text-grey text-sm`}
           >
-            {user.email}
+            {user?.email}
           </div>
         </div>
       </div>

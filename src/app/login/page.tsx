@@ -5,13 +5,14 @@ import Input from "@/components/reusables/Input";
 import { LogoIcon, LogoText } from "@/components/Svgs";
 import Link from "next/link";
 import { LoginProps, LoginInputError } from "@/types";
+import { login } from "./action";
 
 const Page = () => {
 	const [value, setValue] = useState<LoginProps>({
 		email: "",
 		password: "",
 	});
-
+	const [isLoading, setIsLoading] = useState(false);
 	const [inputError, setInputError] = useState<LoginInputError>({
 		email: { isInvalid: false, message: "" },
 		password: { isInvalid: false, message: "" },
@@ -56,9 +57,22 @@ const Page = () => {
 		return !newErrors.email.isInvalid && !newErrors.password.isInvalid;
 	};
 
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		if (validateInputs()) {
-			console.log("Form has no error");
+			try {
+				setIsLoading(true);
+				const formData = new FormData();
+
+				formData.append("email", value.email);
+				formData.append("password", value.password);
+
+				await login(formData);
+				console.log("Form has no error");
+			} catch (err) {
+				console.log(err);
+			} finally {
+				setIsLoading(false);
+			}
 		} else {
 			console.log("Form have error");
 		}
@@ -113,6 +127,7 @@ const Page = () => {
 					/>
 					<Button
 						onPress={handleSubmit}
+						isLoading={isLoading}
 						size="lg"
 						color="primary"
 						className="text-white w-full rounded-lg hover:bg-purpleHover"

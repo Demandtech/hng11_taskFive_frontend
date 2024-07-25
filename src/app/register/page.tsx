@@ -5,6 +5,7 @@ import Input from "@/components/reusables/Input";
 import { LogoIcon, LogoText } from "@/components/Svgs";
 import Link from "next/link";
 import { RegisterProps, RegisterInputError } from "@/types";
+import { signup } from "./action";
 
 const Page = () => {
 	const [value, setValue] = useState<RegisterProps>({
@@ -12,6 +13,7 @@ const Page = () => {
 		password: "",
 		confirm_password: "",
 	});
+	const [isLoading, setIsLoading] = useState<boolean>();
 
 	const [inputError, setInputError] = useState<RegisterInputError>({
 		email: { isInvalid: false, message: "" },
@@ -75,9 +77,22 @@ const Page = () => {
 		);
 	};
 
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		if (validateInputs()) {
-			console.log("Form has no error");
+			setIsLoading(true);
+			try {
+				const formData = new FormData();
+				formData.append("email", value.email);
+				formData.append("password", value.password);
+				await signup(formData);
+
+				setIsLoading(false);
+			} catch (err) {
+				setIsLoading(false);
+				console.log(err);
+			} finally {
+				setIsLoading(false);
+			}
 		} else {
 			console.log("Form have error");
 		}
@@ -139,12 +154,13 @@ const Page = () => {
 						errorMessage={inputError.confirm_password.message}
 					/>
 					<Button
+						isLoading={isLoading}
 						size="lg"
 						color="primary"
 						className="text-white w-full rounded-lg hover:bg-purpleHover"
 						onPress={handleSubmit}
 					>
-						Login{" "}
+						Sign Up
 					</Button>
 				</form>
 
