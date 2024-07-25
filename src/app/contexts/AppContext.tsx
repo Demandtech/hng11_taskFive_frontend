@@ -19,7 +19,7 @@ export default function AppProvider({ children }: { children: ReactNode }) {
 		return [];
 	});
 
-	const [user, setUser] = useState<User | null>({
+	const [user, setUser] = useState<User>({
 		first_name: "",
 		last_name: "",
 		email: "",
